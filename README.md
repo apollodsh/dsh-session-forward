@@ -219,6 +219,19 @@ bash scripts/publish-to-github.sh <owner> <repo>
 本地安装调试用 `link:`，改完代码重启 DSH 即可；发布新版本时改 `package.json` 的 `version`、
 `git commit`、`git tag vX.Y.Z`，再跑一次脚本（会顺带推 tag）。
 
+**市场索引**：`market/index.json` 是一份格式 1 的插件市场索引，装到 DSH 的「发现」页。
+发布新版本后要同步它：改 `versions[0].version`、`publishTimestamp`（Unix 秒）与
+`source.commit`（`git rev-parse HEAD`），再推送。jsDelivr 有缓存，推完清一下：
+
+```bash
+curl -s "https://purge.jsdelivr.net/gh/apollodsh/dsh-session-forward@main/market/index.json"
+```
+
+**社区目录**（dshmarket / awesome-dsh-plugin）：向
+[awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 提 PR，
+新增 `data/plugins/apollodsh__dsh-session-forward.yml` 一个文件即可（要求仓库带 `dsh-plugin`
+topic、创建满一天、`package.json` 声明 `dsh.bundle`）。
+
 ## License
 
 [MIT](LICENSE) © 2026 apollodsh
