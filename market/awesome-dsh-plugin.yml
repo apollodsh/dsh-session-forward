@@ -1,0 +1,11 @@
+# 提交到社区目录 awesome-dsh-plugin 的条目（format: data/plugins/<owner>__<repo>.yml）
+# 用法：在 awesome-dsh-plugin 的 fork 里新建文件 data/plugins/apollodsh__dsh-session-forward.yml，
+# 内容复制本文件，然后向上游 main 提 PR。
+# 规则：一个 PR 最多 3 条；CI 检查 dsh.bundle、仓库满 1 天、awesome-lint 与站点构建。
+url: https://github.com/apollodsh/dsh-session-forward
+name: apollodsh/dsh-session-forward
+category: session
+description:
+  en: "Share a DSH conversation without making the recipient install anything — copy a 24-hour LAN link, export a self-contained web page they can open offline, or import a .dshchat file as a real resumable session when both sides run the plugin."
+  zh: "把 DSH 会话转发给别人：复制 24 小时有效的局域网链接、导出对方双击即读的自包含网页，或两边都装插件时用 .dshchat 文件导入成一条可继续对话的真实会话。"
+icon: https://raw.githubusercontent.com/apollodsh/dsh-session-forward/main/docs/images/icon-180.png
