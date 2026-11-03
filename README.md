@@ -49,7 +49,19 @@ install_bundle target "/绝对路径/dsh-session-forward"
 
 （本地目录是 `link:` 安装，改完代码重新构建/重启即可生效，适合自己改。）
 
-### 方式三：npm（尚未发布）
+### 方式三：加到「发现」页的插件市场索引
+
+如果你的 DSH 打开了自定义插件市场（**插件 → 实验性插件 → 自定义插件市场**），
+在 **发现 → 索引源** 里添加这个地址，然后搜索「会话转发」一键安装：
+
+```
+https://cdn.jsdelivr.net/gh/apollodsh/dsh-session-forward@main/market/index.json
+```
+
+（CDN 慢的话可以用 GitHub 原始地址：
+`https://raw.githubusercontent.com/apollodsh/dsh-session-forward/main/market/index.json`）
+
+### 方式四：npm（尚未发布）
 
 发布到 npm 之后可以直接：
 

@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH Session Forwarding",
+    "zh": "会话转发"
+  },
+  "description": {
+    "en": "Hand a DeepSeek Harness conversation to someone else: copy a 24-hour LAN share link, export a self-contained web page they can open without installing anything, or import a .dshchat file as a real resumable session when both sides run the plugin.",
+    "zh": "把 DSH 会话转发给别人：复制 24 小时有效的局域网链接、导出对方双击即读的自包含网页；两边都装了插件时，.dshchat 文件还能导入成一条可继续对话的真实会话。"
+  },
+  "metadata": {
+    "categories": {
+      "session": {
+        "title": {
+          "en": "Sessions & Messages",
+          "zh": "会话与消息"
+        }
+      }
+    },
+    "labels": {},
+    "sortKeys": {}
+  },
+  "plugins": [
+    {
+      "name": "dsh-session-forward",
+      "title": {
+        "en": "Session Forwarding",
+        "zh": "会话转发"
+      },
+      "description": {
+        "en": "Share a DSH conversation without making the recipient install anything: copy a share link, export a self-contained web page, or import a .dshchat file as a resumable session when both sides have the plugin.",
+        "zh": "把 DSH 会话转发给别人：分享链接、零安装网页记录，或两边都装插件时导入成可续聊的真实会话。"
+      },
+      "icon": "https://raw.githubusercontent.com/apollodsh/dsh-session-forward/main/icon.svg",
+      "author": "apollodsh",
+      "homepage": "https://github.com/apollodsh/dsh-session-forward#readme",
+      "repository": {
+        "url": "https://github.com/apollodsh/dsh-session-forward"
+      },
+      "metadata": {
+        "category": "session",
+        "keywords": [
+          "session",
+          "share",
+          "forward",
+          "handoff",
+          "export",
+          "import",
+          "conversation"
+        ],
+        "labels": [],
+        "sortKeys": {}
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1793720252,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/apollodsh/dsh-session-forward",
+            "commit": "beaa1db19cbe848af9d2f469a309b35d0e773780"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
