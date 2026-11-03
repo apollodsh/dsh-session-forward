@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Session Forwarding",
+    "description": "Package a DSH conversation into a .dshchat file you can send to someone else; they open it in their own DSH and continue from there."
+  }
+}

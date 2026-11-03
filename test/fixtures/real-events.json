@@ -1,0 +1,495 @@
+{
+  "meta": {
+    "note": "从本机真实会话日志裁剪的事件样本；只保留结构形状，文本已截断",
+    "source": "session.v4.jsonl.zstd",
+    "eventTypeCount": 25
+  },
+  "samples": [
+    {
+      "name": "human-user-message",
+      "notes": "真人输入；source.kind === \"user\"，必须保留",
+      "event": {
+        "type": "user/message",
+        "seq": 10,
+        "time": 1793703486962,
+        "data": {
+          "content": [
+            {
+              "type": "text",
+              "text": "做一个插件，允许我在dsh里可以把会话转发给其他人，其他人也可以在他的dsh里打开这个对话"
+            }
+          ],
+          "source": {
+            "kind": "user",
+            "rpcId": "b608c31d-4e77-411c-b698-863fc517866e",
+            "clientTimeZone": "Asia/Shanghai"
+          },
+          "role": "user",
+          "id": "a0a03c3b-27d7-4285-89af-5c45f53e7e40"
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "injected-runtime-context",
+      "notes": "注入上下文（source.kind === \"runtime-context\"），必须排除",
+      "event": {
+        "type": "user/message",
+        "seq": 11,
+        "time": 1793703486962,
+        "data": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.\n\nCurrent working directory: \"/Users…[trimmed]"
+            }
+          ],
+          "source": {
+            "kind": "runtime-context",
+            "form": "snapshot",
+            "sections": [
+              {
+                "name": "working-directory:current",
+                "text": "Current working directory: \"/Users/zhengyang/DSH\"."
+              },
+              {
+                "name": "sandbox:policy",
+                "text": "Current DSH file policy: workspace-write. Any available operation enforced by th…[trimmed]"
+              }
+            ]
+          },
+          "role": "user",
+          "id": "81a72712-8cd1-4057-93d2-f04effda22e4"
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "injected-skill-catalog",
+      "notes": "注入上下文（source.kind === \"skill-catalog\"），必须排除",
+      "event": {
+        "type": "user/message",
+        "seq": 12,
+        "time": 1793703486962,
+        "data": {
+          "content": [
+            {
+              "type": "text",
+              "text": "<system-reminder>\nA skill is a reusable set of task-specific instructions. The following skills are available in this se…[trimmed]"
+            }
+          ],
+          "source": {
+            "kind": "skill-catalog",
+            "form": "catalog",
+            "entries": [
+              {
+                "name": "agent-experience",
+                "description": "Use when writing or changing a model-facing tool definition (name, description, parameter schema, or its system-prompt section), and when designing skills, context loading, or multi-step workflows, to make information discoverable and use context efficiently."
+              }
+            ]
+          },
+          "role": "user",
+          "id": "767ffdc7-b44b-4846-980e-3fec7a3cfd67"
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "injected-time-context",
+      "notes": "注入上下文（source.kind === \"time-context\"），必须排除",
+      "event": {
+        "type": "user/message",
+        "seq": 13,
+        "time": 1793703486962,
+        "data": {
+          "content": [
+            {
+              "type": "text",
+              "text": "Time sampled while preparing turn 1, step 1: 2026-11-03T18:58:06+08:00[Asia/Shanghai]\nBrowser time zone for this request…[trimmed]"
+            }
+          ],
+          "source": {
+            "kind": "time-context",
+            "form": "snapshot",
+            "sections": [
+              {
+                "name": "time-context",
+                "text": "Time sampled while preparing turn 1, step 1: 2026-11-03T18:58:06+08:00[Asia/Shan…[trimmed]"
+              }
+            ]
+          },
+          "role": "user",
+          "id": "5b3d0a12-e6e0-4694-81c1-57e0ebafcba0"
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "injected-dsh-mnemon",
+      "notes": "注入上下文（source.kind === \"dsh-mnemon\"），必须排除",
+      "event": {
+        "type": "user/message",
+        "seq": 14,
+        "time": 1793703486962,
+        "data": {
+          "id": "e7d3eb7b-0df1-46b8-9fd8-49ad0b055a9d",
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "[MNEMON] Search Documents for substantial project records, and use mnemon_runtime_memory only for new user-supplied fact…[trimmed]"
+            }
+          ],
+          "source": {
+            "kind": "dsh-mnemon",
+            "form": "instructions"
+          }
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "assistant-reasoning-tool-call",
+      "notes": "真实助手消息：reasoning + tool-call，没有 text —— 抽取后应被丢弃但计入统计",
+      "event": {
+        "type": "assistant/message",
+        "seq": 21,
+        "time": 1793703489582,
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "reasoning",
+                "text": "Let me start by understanding the task: build a plugin that allows forwarding a …[trimmed]"
+              },
+              {
+                "type": "tool-call",
+                "id": "call_00_4r45uxgfdn8olom88dqz9pgl",
+                "name": "skill",
+                "arguments": "{\"name\":\"cordis-plugin-development\"}"
+              },
+              {
+                "type": "tool-call",
+                "id": "call_01_xbbfkk2v5vuyux15t983ynpg",
+                "name": "bash",
+                "arguments": "{\"command\":\"pwd && ls -la\",\"description\":\"Show working directory contents\"}"
+              }
+            ],
+            "source": {
+              "kind": "model",
+              "provider": "magpie",
+              "model": "volcengine/deepseek-v4.1-flash",
+              "replayState": {
+                "response": {
+                  "kind": "pi-ai",
+                  "version": 2,
+                  "api": "openai-completions",
+                  "provider": "magpie",
+                  "model": "volcengine/deepseek-v4.1-flash",
+                  "responseId": "021793703487325c023b1fb2f77c622a3f5432d0f622268ab0f04",
+                  "stopReason": "toolUse"
+                },
+                "blocks": [
+                  {
+                    "type": "reasoning",
+                    "thinkingSignature": "reasoning_content"
+                  },
+                  {
+                    "type": "tool-call"
+                  },
+                  {
+                    "type": "tool-call"
+                  }
+                ]
+              }
+            },
+            "id": "c6b73f35-30e3-45a6-b513-4219d6b331e0"
+          },
+          "usage": {
+            "inputTokens": 2561,
+            "outputTokens": 341,
+            "totalTokens": 19286,
+            "cacheReadTokens": 16384
+          },
+          "stream": [
+            {
+              "type": "chunk",
+              "time": 1793703488014,
+              "chunk": {
+                "type": "block-start",
+                "index": 0,
+                "blockType": "reasoning"
+              }
+            },
+            {
+              "type": "reasoning-chunks",
+              "time0": 1793703488015,
+              "index": 0,
+              "dt": [
+                0,
+                0,
+                70,
+                0,
+                0,
+                0,
+                52,
+                0,
+                0,
+                0,
+                33,
+                0,
+                0,
+                0,
+                55,
+                0,
+                0,
+                0,
+                106,
+                0,
+                1,
+                0,
+                15,
+                0,
+                0,
+                0,
+                116,
+                1,
+                0,
+                0,
+                5,
+                0,
+                0,
+                0,
+                63,
+                0,
+                0,
+                1,
+                53,
+                0,
+                0,
+                0,
+                51,
+                1,
+                0,
+                0,
+                77,
+                1,
+                0,
+                0,
+                32,
+                4,
+                0,
+                0,
+                84,
+                0,
+                0,
+                0,
+                50,
+                1,
+                0,
+                0,
+                97,
+                0,
+                0,
+                0,
+                24,
+                0,
+                4,
+                0,
+                71,
+                1,
+                0,
+                0,
+                57,
+                0,
+                0,
+                0,
+                65,
+                1,
+                0,
+                0,
+                57,
+                1,
+                0,
+                0,
+                114,
+                1
+              ],
+              "texts": [
+                "Let",
+                " me start by understanding",
+                " the task:",
+                " build a",
+                " plugin that allows",
+                " forwarding a",
+                " conversation",
+                " to another",
+                " person,",
+                " and that",
+                " person can open the",
+                " conversation in their own d",
+                "sh.\n\nThis is a",
+                " DSH",
+                " plugin development",
+                " task. I should load the",
+                " relevant",
+                " skill: `cordis-plugin",
+                "-development`. Also possibly",
+                " `cordis-composition-reference",
+                "`.\n\nLet me first",
+                " check the workspace and",
+                " load skills",
+                ".",
+                " Let me also check the plugin",
+                " capabilities",
+                " —",
+                " what does D",
+                "SH support",
+                " for exporting",
+                "/",
+                "importing sessions? There may",
+                " be existing functionality",
+                ": session export/",
+                "import, share links",
+                ",",
+                " etc.\n\nLet me start",
+                " by",
+                " loading",
+                " the skill and exploring",
+                ".\n\nFirst",
+                ", let me get",
+                " the",
+                " working directory and",
+                " look around",
+                ".\n\nI should plan",
+                " this carefully",
+                ". Key",
+                " design question",
+                ": how to",
+                " \"forward",
+                " a",
+                " session to another person\"",
+                " when",
+                " there",
+                "'s no server",
+                "? Options:\n1. Export",
+                " session",
+                " as",
+                " a file",
+                " (JSON) that",
+                " the other",
+                " person imports",
+                " into",
+                " their DSH.\n2.",
+                " A share",
+                " link containing",
+                " session",
+                " data.\n\nLet",
+                " me research D",
+                "SH's session",
+                " storage and",
+                " import",
+                "/export capabilities first",
+                ".\n\nLet me load the",
+                " skill and explore in",
+                " parallel.\n\nActually",
+                " per instructions,",
+                " I should use",
+                " the skill",
+                " tool before",
+                " acting",
+                ". Let me call skill",
+                " for cordis-plugin-development,",
+                " and simultaneously",
+                " explore the",
+                " workspace with",
+                " bash.\n\nLet me do",
+                " that."
+              ]
+            }
+          ]
+        },
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "turn-start",
+      "notes": "",
+      "event": {
+        "type": "turn/start",
+        "seq": 6,
+        "time": 1793703486874,
+        "data": {
+          "turn": 1
+        }
+      }
+    },
+    {
+      "name": "step-start",
+      "notes": "",
+      "event": {
+        "type": "step/start",
+        "seq": 8,
+        "time": 1793703486960,
+        "data": {
+          "turn": 1,
+          "step": 1
+        }
+      }
+    },
+    {
+      "name": "tool-result",
+      "notes": "tool/result 只用于统计，不进对话",
+      "event": {
+        "type": "tool/result",
+        "seq": 23,
+        "time": 1793703489598,
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "role": "tool",
+            "source": {
+              "kind": "tool",
+              "callId": "call_00_4r45uxgfdn8olom88dqz9pgl"
+            },
+            "toolCallId": "call_00_4r45uxgfdn8olom88dqz9pgl",
+            "content": [
+              {
+                "type": "text",
+                "text": "<skill_content name=\"cordis-plugin-development\">\n<skill_resources>\nBase directory for this skill: /Applications/DeepSeek…[trimmed]"
+              }
+            ],
+            "isError": false,
+            "id": "2967a52a-e71d-4599-9496-431b597a23e2"
+          }
+        },
+        "sourceEventSeqs": [
+          22
+        ],
+        "surfaceOp": "append"
+      }
+    },
+    {
+      "name": "session-title",
+      "notes": "会话标题事件",
+      "event": {
+        "type": "session/title",
+        "seq": 18,
+        "time": 1793703486965,
+        "data": {
+          "title": "做一个插件，允许我在dsh里可",
+          "messageSeqs": [
+            10
+          ],
+          "source": {
+            "kind": "fallback"
+          }
+        }
+      }
+    }
+  ]
+}
