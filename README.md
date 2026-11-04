@@ -155,6 +155,14 @@ bash scripts/test.sh     # 本机没有 npm 也能跑
 
 没有 `node` 也没关系：脚本会自动借用 DSH 桌面版内置的 Node（Electron 的 run-as-node）。
 
+可选的浏览器焦点回归需要安装好依赖和 Playwright Chromium 的 DSH 源码工作区：
+
+```bash
+DSH_WORKSPACE="/path/to/DSH" node test/browser-focus.mjs
+```
+
+该测试在独立浏览器中使用真实插件和 DSH 的 Menu 组件，但侧栏结构、样式和插件上下文由 fixture 模拟；它不是完整 DSH 界面的端到端验证。
+
 | 测试 | 覆盖 |
 |---|---|
 | `test/run.mjs` | bundle 抽取/打包/校验/事件生成；会用宿主真实的 `dsh-session` 校验合成事件（拿不到时跳过） |

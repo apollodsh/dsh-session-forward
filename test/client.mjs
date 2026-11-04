@@ -7,9 +7,12 @@ const source = await readFile(new URL('../lib/client.js', import.meta.url), 'utf
 const timers = new Map()
 let nextTimer = 0
 const body = {}
+let rows = []
+let header = null
 const document = {
   body, activeElement: body,
-  querySelector: () => null,
+  querySelectorAll: () => rows,
+  querySelector: () => header,
   createElement: () => ({ dataset: {}, parentNode: null }),
   head: {
     appendChild(node) { node.parentNode = this },
@@ -109,8 +112,9 @@ assert.notEqual(menu.props.children[0], 'menu.forward', 'sidebar uses registered
 const english = menu.props.children[0]
 first.setLanguage('zh')
 assert.notEqual(find(sidebar.component({ sessionId: 'other', useMenuOpenState: () => [true, () => {}] }), (node) => node.type === MenuItemButton).props.children[0], english)
-const focusCalls = []
-const persistentTrigger = { isConnected: true, focus: (options) => focusCalls.push(options) }
+const persistentTrigger = { isConnected: true, visible: true, focus() { if (this.visible) document.activeElement = this } }
+header = { isConnected: true, focus() { document.activeElement = this } }
+rows = [{ getAttribute: () => 'session:selected / session', querySelector: () => persistentTrigger }]
 menu.props.onSelect()
 assert.equal(menuOpen, false, 'selection closes the menu immediately')
 assert.equal(overlay({}), null, 'dialog waits for menu focus restoration')
@@ -127,10 +131,19 @@ assert.equal(requests[0].options.method, 'GET')
 tree = dialog(overlay)
 assert.ok(find(tree, (node) => node.props?.children?.includes('Selected session')), 'export result is rendered')
 const close = find(tree, (node) => node.type === 'button' && node.props.className === 'dshsf-close')
+document.activeElement = body
 close.props.onClick()
 assert.equal(overlay({}), null)
-assert.equal(focusCalls.length, 1, 'closing restores focus to the persistent menu trigger')
-assert.equal(focusCalls[0].preventScroll, true)
+assert.equal(document.activeElement, persistentTrigger, 'closing restores focus to a visible menu trigger')
+
+// A connected but hidden trigger cannot receive focus; use the header instead.
+menu.props.onSelect()
+flushTimer()
+tree = dialog(overlay)
+persistentTrigger.visible = false
+document.activeElement = body
+find(tree, (node) => node.type === 'button' && node.props.className === 'dshsf-close').props.onClick()
+assert.equal(document.activeElement, header, 'hidden trigger falls back to the header')
 
 // A pending sidebar action must not reopen the overlay after unload.
 menu.props.onSelect()
