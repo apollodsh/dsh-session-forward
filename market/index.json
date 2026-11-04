@@ -53,6 +53,18 @@
       },
       "versions": [
         {
+          "version": "0.2.1",
+          "publishTimestamp": 1793774401,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/apollodsh/dsh-session-forward",
+            "commit": "12811f2ab1f17645cda78b1516739f2ee8455995"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        },
+        {
           "version": "0.2.0",
           "publishTimestamp": 1793768907,
           "source": {
