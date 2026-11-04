@@ -77,10 +77,14 @@ for phase in install reinstall; do
   check_manifest installed
   check_config installed
   if [ "$phase" = install ]; then
+    echo "== repeat installed source"
+    dsh plugin --profile "$profile" add "$target"
+    check_manifest installed
+    check_config installed
     echo "== uninstall"
     dsh plugin --profile "$profile" remove dsh-session-forward
     check_manifest removed
     check_config removed
   fi
 done
-echo "Install, uninstall, and reinstall passed for dsh-session-forward@$expected_version"
+echo "Install, repeated add, uninstall, and reinstall passed for dsh-session-forward@$expected_version"

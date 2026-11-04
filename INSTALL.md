@@ -32,7 +32,7 @@ App 安装在默认目录时，自带 CLI 支持管理 `desktop` profile，首�
 
 ### 可选：隔离安装检查
 
-需要 PATH 中有 `dsh`、`node` 和 `mktemp`。脚本使用临时 DSH_HOME 和独立 profile，检查安装包版本、bundle 声明和配置加载，再卸载并重新安装；它不启动模型，也不使用桌面或 Web 的真实 profile。它是 CLI 安装检查，不是桌面界面端到端测试。
+需要 PATH 中有 `dsh`、`node` 和 `mktemp`。脚本使用临时 DSH_HOME 和独立 profile，检查安装包版本、bundle 声明和配置加载，重复添加同一来源后确认 bundle 仍恰好声明一次，再卸载并重新安装；它不启动模型，也不使用桌面或 Web 的真实 profile。它是 CLI 安装检查，不是桌面界面端到端测试。
 
 ```bash
 # 默认检查当前目录的插件，预期版本 0.2.1
@@ -75,7 +75,7 @@ The desktop App uses the `desktop` profile; `dsh web` uses a separate `web` prof
 
 ### Optional isolated installation smoke
 
-The script requires `dsh`, `node`, and `mktemp` on PATH. It uses a temporary DSH_HOME and a separate profile to check the installed version, bundle declaration, and configuration loading, then uninstalls and reinstalls. It does not start a model or use the real desktop or Web profile. This checks CLI installation, not the desktop UI end to end.
+The script requires `dsh`, `node`, and `mktemp` on PATH. It uses a temporary DSH_HOME and a separate profile to check the installed version, bundle declaration, and configuration loading, adds the same source again and confirms the bundle is still selected exactly once, then uninstalls and reinstalls. It does not start a model or use the real desktop or Web profile. This checks CLI installation, not the desktop UI end to end.
 
 ```bash
 # Default: check the local checkout, expecting version 0.2.1
