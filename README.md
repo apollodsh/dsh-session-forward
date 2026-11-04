@@ -33,6 +33,12 @@ DSH 是跑在本机的应用：没有官方服务器托管的「分享页」，�
 install_bundle target "github:apollodsh/dsh-session-forward"
 ```
 
+发布 `v0.2.0` 标签后，也可以固定安装该版本：
+
+```
+install_bundle target "github:apollodsh/dsh-session-forward#v0.2.0"
+```
+
 安装完成后**重启 DSH**（宿主半边的 JS 与浏览器 bundle 都在启动时加载；只刷新页面不够）。
 
 ### 方式二：克隆下来，装本地目录
@@ -73,7 +79,7 @@ install_bundle target "dsh-session-forward"
 
 ### 1. 分享链接（最省事）
 
-1. 打开要转发的会话，点会话标题右侧的**转发**图标；
+1. 点会话标题右侧的**转发**图标；也可以在左侧会话列表中打开目标会话的「…」菜单，选择**转发**，无需切换当前会话；
 2. 「转发本会话」→ **复制分享链接**（链接已经在剪贴板里，下方也会显示出来）；
 3. 粘到微信 / 飞书发出去。对方点开就是排版好的对话记录；想接着聊，点页面底部「复制全文（Markdown）」，粘进自己的 DSH 对话框即可。
 
@@ -120,7 +126,7 @@ install_bundle target "dsh-session-forward"
 
 ## 兼容性与已知限制
 
-- 需要 DSH `>= 0.2.1-rc.2 < 0.3.0`；DSH 升级到 0.3 后可能需要跟着适配。
+- 需要 DSH `>= 0.2.1-rc.2 < 0.3.0`；DSH 升级到 0.3 后可能需要跟着适配。尚未发送消息的空白会话不显示侧栏操作菜单。
 - **分享链接只能同局域网打开**，且是明文 HTTP；DSH 重启后旧链接全部失效（页面存在内存里）。
 - 网页记录是**静态阅读稿**，不是会话：能读、能复制、能打印，但不能在网页里继续聊。
 - 会话文件只有安装了本插件的一方能导入；`.dshchat` 不能给没装插件的人用。
@@ -155,9 +161,18 @@ bash scripts/test.sh     # 本机没有 npm 也能跑
 
 没有 `node` 也没关系：脚本会自动借用 DSH 桌面版内置的 Node（Electron 的 run-as-node）。
 
+可选的浏览器焦点回归需要安装好依赖和 Playwright Chromium 的 DSH 源码工作区：
+
+```bash
+DSH_WORKSPACE="/path/to/DSH" node test/browser-focus.mjs
+```
+
+该测试在独立浏览器中使用真实插件和 DSH 的 Menu 组件，但侧栏结构、样式和插件上下文由 fixture 模拟；它不是完整 DSH 界面的端到端验证。
+
 | 测试 | 覆盖 |
 |---|---|
 | `test/run.mjs` | bundle 抽取/打包/校验/事件生成；会用宿主真实的 `dsh-session` 校验合成事件（拿不到时跳过） |
+| `test/client.mjs` | 客户端座位注册、侧栏会话导出、焦点交接、文案与卸载重载（模拟平台） |
 | `test/html-host.mjs` | 网页渲染：转义、注入、自包含、中英文案、有效期 |
 | `test/share-server.mjs` | 分享服务：真实 HTTP、404/405、过期、淘汰、头部、关闭 |
 | `test/share-integration.mjs` | 假 ctx 跑真 `apply()`：三条路由、真发 HTTP 取分享页、工具 `share` |
@@ -203,7 +218,7 @@ ssh -T git@github.com   # 看到 "Hi <用户名>!" 就说明通了
 - **Web page file**: a fully self-contained `.dshchat.html` the recipient double-clicks — no install, works offline.
 - **Session file**: if both sides run this plugin, `.dshchat.json` imports into a real, resumable session.
 
-Install from GitHub: `plugin_manager` → `install_bundle target "github:apollodsh/dsh-session-forward"`, then restart DSH.
+Install from GitHub: `plugin_manager` → `install_bundle target "github:apollodsh/dsh-session-forward"`, then restart DSH. Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
 
 Only visible conversation text travels; tool calls, reasoning, attachments and sub-sessions stay behind. Share links are LAN-only, plain HTTP, token-gated, and expire after 24 hours (and on restart) — treat them as credentials.
 
@@ -220,8 +235,9 @@ bash scripts/publish-to-github.sh <owner> <repo>
 `git commit`、`git tag vX.Y.Z`，再跑一次脚本（会顺带推 tag）。
 
 **市场索引**：`market/index.json` 是一份格式 1 的插件市场索引，装到 DSH 的「发现」页。
-发布新版本后要同步它：改 `versions[0].version`、`publishTimestamp`（Unix 秒）与
-`source.commit`（`git rev-parse HEAD`），再推送。jsDelivr 有缓存，推完清一下：
+发布新版本时先提交代码与版本，记下该提交 R；再在 `versions` 首部新增条目，填写版本、
+`publishTimestamp`（Unix 秒）、与包一致的 DSH engines 和指向 R 的 `source.commit`，保留旧版本并单独提交索引。
+jsDelivr 有缓存，索引发布后可清除缓存：
 
 ```bash
 curl -s "https://purge.jsdelivr.net/gh/apollodsh/dsh-session-forward@main/market/index.json"
