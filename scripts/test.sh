@@ -31,7 +31,7 @@ fi
 
 echo "node: $NODE_BIN ($("$NODE_BIN" --version 2>/dev/null || echo unknown))"
 status=0
-for file in test/run.mjs test/html-host.mjs test/share-server.mjs test/share-integration.mjs; do
+for file in test/run.mjs test/client.mjs test/html-host.mjs test/share-server.mjs test/share-integration.mjs; do
   echo
   echo "== $file"
   "$NODE_BIN" "$file" || status=1

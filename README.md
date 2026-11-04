@@ -73,7 +73,7 @@ install_bundle target "dsh-session-forward"
 
 ### 1. 分享链接（最省事）
 
-1. 打开要转发的会话，点会话标题右侧的**转发**图标；
+1. 点会话标题右侧的**转发**图标；也可以在左侧会话列表中打开目标会话的「…」菜单，选择**转发**，无需切换当前会话；
 2. 「转发本会话」→ **复制分享链接**（链接已经在剪贴板里，下方也会显示出来）；
 3. 粘到微信 / 飞书发出去。对方点开就是排版好的对话记录；想接着聊，点页面底部「复制全文（Markdown）」，粘进自己的 DSH 对话框即可。
 
@@ -120,7 +120,7 @@ install_bundle target "dsh-session-forward"
 
 ## 兼容性与已知限制
 
-- 需要 DSH `>= 0.2.1-rc.2 < 0.3.0`；DSH 升级到 0.3 后可能需要跟着适配。
+- 需要 DSH `>= 0.2.1-rc.2 < 0.3.0`；DSH 升级到 0.3 后可能需要跟着适配。尚未发送消息的空白会话不显示侧栏操作菜单。
 - **分享链接只能同局域网打开**，且是明文 HTTP；DSH 重启后旧链接全部失效（页面存在内存里）。
 - 网页记录是**静态阅读稿**，不是会话：能读、能复制、能打印，但不能在网页里继续聊。
 - 会话文件只有安装了本插件的一方能导入；`.dshchat` 不能给没装插件的人用。
@@ -158,6 +158,7 @@ bash scripts/test.sh     # 本机没有 npm 也能跑
 | 测试 | 覆盖 |
 |---|---|
 | `test/run.mjs` | bundle 抽取/打包/校验/事件生成；会用宿主真实的 `dsh-session` 校验合成事件（拿不到时跳过） |
+| `test/client.mjs` | 客户端座位注册、侧栏会话导出、焦点交接、文案与卸载重载（模拟平台） |
 | `test/html-host.mjs` | 网页渲染：转义、注入、自包含、中英文案、有效期 |
 | `test/share-server.mjs` | 分享服务：真实 HTTP、404/405、过期、淘汰、头部、关闭 |
 | `test/share-integration.mjs` | 假 ctx 跑真 `apply()`：三条路由、真发 HTTP 取分享页、工具 `share` |
@@ -203,7 +204,7 @@ ssh -T git@github.com   # 看到 "Hi <用户名>!" 就说明通了
 - **Web page file**: a fully self-contained `.dshchat.html` the recipient double-clicks — no install, works offline.
 - **Session file**: if both sides run this plugin, `.dshchat.json` imports into a real, resumable session.
 
-Install from GitHub: `plugin_manager` → `install_bundle target "github:apollodsh/dsh-session-forward"`, then restart DSH.
+Install from GitHub: `plugin_manager` → `install_bundle target "github:apollodsh/dsh-session-forward"`, then restart DSH. Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
 
 Only visible conversation text travels; tool calls, reasoning, attachments and sub-sessions stay behind. Share links are LAN-only, plain HTTP, token-gated, and expire after 24 hours (and on restart) — treat them as credentials.
 
