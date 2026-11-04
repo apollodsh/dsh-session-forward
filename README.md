@@ -33,6 +33,12 @@ DSH 是跑在本机的应用：没有官方服务器托管的「分享页」，�
 install_bundle target "github:apollodsh/dsh-session-forward"
 ```
 
+发布 `v0.2.0` 标签后，也可以固定安装该版本：
+
+```
+install_bundle target "github:apollodsh/dsh-session-forward#v0.2.0"
+```
+
 安装完成后**重启 DSH**（宿主半边的 JS 与浏览器 bundle 都在启动时加载；只刷新页面不够）。
 
 ### 方式二：克隆下来，装本地目录
@@ -229,8 +235,9 @@ bash scripts/publish-to-github.sh <owner> <repo>
 `git commit`、`git tag vX.Y.Z`，再跑一次脚本（会顺带推 tag）。
 
 **市场索引**：`market/index.json` 是一份格式 1 的插件市场索引，装到 DSH 的「发现」页。
-发布新版本后要同步它：改 `versions[0].version`、`publishTimestamp`（Unix 秒）与
-`source.commit`（`git rev-parse HEAD`），再推送。jsDelivr 有缓存，推完清一下：
+发布新版本时先提交代码与版本，记下该提交 R；再在 `versions` 首部新增条目，填写版本、
+`publishTimestamp`（Unix 秒）、与包一致的 DSH engines 和指向 R 的 `source.commit`，保留旧版本并单独提交索引。
+jsDelivr 有缓存，索引发布后可清除缓存：
 
 ```bash
 curl -s "https://purge.jsdelivr.net/gh/apollodsh/dsh-session-forward@main/market/index.json"
