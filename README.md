@@ -29,7 +29,7 @@ DSH 是跑在本机的应用：没有官方服务器托管的「分享页」，�
 1. 打开 **插件 → 添加插件**，输入 `github:apollodsh/dsh-session-forward#v0.2.1`，或已下载的 `.tgz` 文件的绝对路径。
 2. 点击 **安装**，然后启用插件；如果应用提示重启，按提示重启 DSH。
 
-`v0.2.1` 的侧栏菜单与会话页头转发箭头均朝上。使用固定标签可避免安装内容随 main 分支变化。已有安装要升级时，在插件页先卸载旧版本，再安装目标版本。如果提示已安装，先检查插件详情中的版本和「运行中」状态；同版本无需反复安装。详见 [安装与升级指南](INSTALL.md)。
+`v0.2.1` 的侧栏菜单与会话页头转发箭头均朝上。使用固定标签可避免安装内容随 main 分支变化。已有安装要升级时，在插件页先卸载旧版本，再安装目标版本。如果提示已安装，先检查插件详情中的版本和「运行中」状态；同版本无需反复安装。macOS 桌面 App 也支持通过自带 CLI 安装和升级；安装后重启整个 App 并检查转发入口。详见 [安装与升级指南](INSTALL.md)。
 
 ### 方式二：克隆下来，装本地目录
 
@@ -208,7 +208,7 @@ ssh -T git@github.com   # 看到 "Hi <用户名>!" 就说明通了
 - **Web page file**: a fully self-contained `.dshchat.html` the recipient double-clicks — no install, works offline.
 - **Session file**: if both sides run this plugin, `.dshchat.json` imports into a real, resumable session.
 
-To install, open **Plugins → Add Plugin**, enter `github:apollodsh/dsh-session-forward#v0.2.1` or the absolute path to a downloaded `.tgz`, install and enable it, and restart if prompted. For upgrades, uninstall the existing plugin first; if the same version is already installed, check its version and running status instead of retrying. Both forwarding arrows point upward in `v0.2.1`. Use the pinned GitHub ref to keep the installation independent of main-branch changes. See [installation and upgrades](INSTALL.md). Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
+To install, open **Plugins → Add Plugin**, enter `github:apollodsh/dsh-session-forward#v0.2.1` or the absolute path to a downloaded `.tgz`, install and enable it, and restart if prompted. For upgrades, uninstall the existing plugin first; if the same version is already installed, check its version and running status instead of retrying. Both forwarding arrows point upward in `v0.2.1`. Use the pinned GitHub ref to keep the installation independent of main-branch changes. The macOS desktop App also supports installation and upgrades through its bundled CLI; restart the App afterward and check the forwarding entry. See [installation and upgrades](INSTALL.md). Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
 
 Only visible conversation text travels; tool calls, reasoning, attachments and sub-sessions stay behind. Share links are LAN-only, plain HTTP, token-gated, and expire after 24 hours (and on restart) — treat them as credentials.
 
