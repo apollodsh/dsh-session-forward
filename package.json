@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-forward",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "会话转发 · 把 DSH 里的一段对话交给别人：复制一条链接或导出一个零安装网页，对方不用装插件就能读；两边都装了插件时还能导入成可继续聊的真实会话。Share DSH conversations without making the recipient install anything.",
   "type": "module",
   "main": "lib/index.js",
@@ -22,6 +22,7 @@
     "locale/*.json",
     "icon.svg",
     "README.md",
+    "INSTALL.md",
     "CHANGELOG.md",
     "LICENSE"
   ],

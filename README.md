@@ -24,22 +24,12 @@ DSH 是跑在本机的应用：没有官方服务器托管的「分享页」，�
 
 **前提**：DSH `>= 0.2.1-rc.2 < 0.3.0`（插件靠 `engines.dsh` 做准入），以及 Git（从 GitHub 安装时用）。
 
-### 方式一：从 GitHub 安装（推荐）
+### 方式一：在应用内安装（推荐）
 
-在 DSH 里直接跟 agent 说：
+1. 打开 **插件 → 添加插件**，输入 `github:apollodsh/dsh-session-forward#v0.2.0`，或已下载的 `.tgz` 文件的绝对路径。
+2. 点击 **安装**，然后启用插件；如果应用提示重启，按提示重启 DSH。
 
-```
-请用 plugin_manager 安装这个插件：
-install_bundle target "github:apollodsh/dsh-session-forward"
-```
-
-发布 `v0.2.0` 标签后，也可以固定安装该版本：
-
-```
-install_bundle target "github:apollodsh/dsh-session-forward#v0.2.0"
-```
-
-安装完成后**重启 DSH**（宿主半边的 JS 与浏览器 bundle 都在启动时加载；只刷新页面不够）。
+`v0.2.0` 是已发布的固定版本。修复侧栏与会话页头转发箭头方向不一致的 `v0.2.1` 尚待发布；发布后可使用 `github:apollodsh/dsh-session-forward#v0.2.1` 固定安装。已有安装要升级时，在插件页先卸载旧版本，再安装目标版本。如果提示已安装，先检查插件详情中的版本和「运行中」状态；同版本无需反复安装。详见 [安装与升级指南](INSTALL.md)。
 
 ### 方式二：克隆下来，装本地目录
 
@@ -53,7 +43,7 @@ git clone https://github.com/apollodsh/dsh-session-forward.git
 install_bundle target "/绝对路径/dsh-session-forward"
 ```
 
-（本地目录是 `link:` 安装，改完代码重新构建/重启即可生效，适合自己改。）
+（本地目录是 `link:` 安装，适合自己开发；安装或更新后按应用提示操作。）
 
 ### 方式三：加到「发现」页的插件市场索引
 
@@ -218,7 +208,7 @@ ssh -T git@github.com   # 看到 "Hi <用户名>!" 就说明通了
 - **Web page file**: a fully self-contained `.dshchat.html` the recipient double-clicks — no install, works offline.
 - **Session file**: if both sides run this plugin, `.dshchat.json` imports into a real, resumable session.
 
-Install from GitHub: `plugin_manager` → `install_bundle target "github:apollodsh/dsh-session-forward"`, then restart DSH. Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
+To install, open **Plugins → Add Plugin**, enter `github:apollodsh/dsh-session-forward#v0.2.0` or the absolute path to a downloaded `.tgz`, install and enable it, and restart if prompted. For upgrades, uninstall the existing plugin first; if the same version is already installed, check its version and running status instead of retrying. Release `v0.2.1`, which fixes inconsistent forwarding arrow directions, is pending; use its pinned GitHub ref after it is published. See [installation and upgrades](INSTALL.md). Use the header's forwarding button, or choose **Forward** from any session's sidebar **…** menu without switching sessions.
 
 Only visible conversation text travels; tool calls, reasoning, attachments and sub-sessions stay behind. Share links are LAN-only, plain HTTP, token-gated, and expire after 24 hours (and on restart) — treat them as credentials.
 
