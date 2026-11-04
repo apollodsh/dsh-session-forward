@@ -24,9 +24,12 @@ const Header = registered.get('conversation.session.header.utilities')
 function App() {
   const [open, setOpen] = useState(false)
   const [visible, setVisible] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
   return h(React.Fragment, null,
     h('button', { id: 'unrelated' }, 'Unrelated'),
-    h(Header, { sessionId: 'current' }),
+    headerVisible && h(Header, { sessionId: 'current' }),
+    h('div', { 'data-composer-input': '', contentEditable: true, role: 'textbox' }),
+    h('button', { id: 'toggle-header', onClick: () => setHeaderVisible(v => !v) }, 'Toggle header'),
     h('button', { id: 'toggle-visible', onClick: () => setVisible(v => !v) }, 'Keep row actions visible'),
     h('div', { className: `row ${open ? 'menuOpen' : ''} ${visible ? 'keepVisible' : ''}`, 'data-row-key': 'session:selected' },
       h('span', { className: 'rowActions' },

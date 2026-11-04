@@ -49,6 +49,15 @@ try {
     assert.equal(await page.locator('.rowActions').evaluate(el => getComputedStyle(el).display === 'none'), !visible)
     console.log(`PASS ${visible ? 'visible row trigger' : 'hidden row fallback'} restores focus on Escape`)
   }
+  await page.click('#toggle-visible')
+  await page.click('#toggle-header')
+  await page.click('#open-menu')
+  await page.getByRole('menuitem', { name: 'Forward' }).click()
+  await page.waitForSelector('[data-dsh-session-forward="dialog"]')
+  await page.keyboard.press('Escape')
+  await page.waitForSelector('[data-dsh-session-forward="dialog"]', { state: 'detached' })
+  assert.equal(await page.locator('[data-composer-input]').evaluate(el => document.activeElement === el), true)
+  console.log('PASS hidden row without header restores focus to composer')
 } finally {
   await browser?.close()
   await server.close()
