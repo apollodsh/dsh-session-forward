@@ -7,11 +7,12 @@
 ### 首次安装
 
 1. 在 DSH 打开 **插件 → 添加插件**。
-2. 输入 `github:apollodsh/dsh-session-forward#v0.2.0`，或者输入已下载的插件 `.tgz` 文件的绝对路径。
+2. 输入 `github:apollodsh/dsh-session-forward#v0.2.1`，或者输入已下载的插件 `.tgz` 文件的绝对路径。
 3. 点击 **安装**，然后启用插件。如果应用提示重启，按提示重启 DSH。
 4. 在插件详情确认版本和「运行中」状态。
+5. 打开一条已有会话的 **… → 转发**，确认转发弹窗可以打开；同时检查会话页头的转发按钮。
 
-`v0.2.0` 已发布。修复侧栏菜单与会话页头转发箭头方向不一致的 `v0.2.1` 尚待发布；发布后可将上面的 GitHub 地址换成 `github:apollodsh/dsh-session-forward#v0.2.1`。在它发布前，该固定标签不可作为可用的安装来源。
+`v0.2.1` 中侧栏菜单与会话页头的转发箭头均朝上。使用固定标签可避免安装内容随 main 分支变化。
 
 ### 升级或重复安装
 
@@ -39,11 +40,12 @@ DSH `>= 0.2.1-rc.2 < 0.3.0` is required. Installing from GitHub also requires Gi
 ### First installation
 
 1. In DSH, open **Plugins → Add Plugin**.
-2. Enter `github:apollodsh/dsh-session-forward#v0.2.0`, or the absolute path to a downloaded plugin `.tgz`.
+2. Enter `github:apollodsh/dsh-session-forward#v0.2.1`, or the absolute path to a downloaded plugin `.tgz`.
 3. Click **Install** and enable the plugin. Restart DSH if the app prompts you to do so.
 4. Check the version and running status in the plugin details.
+5. Open **… → Forward** on an existing session and confirm the forwarding dialog opens. Also check the forwarding button in the session header.
 
-`v0.2.0` is released. Release `v0.2.1`, which fixes the inconsistent forwarding arrow directions in the sidebar menu and session header, is pending; once published, replace the GitHub address above with `github:apollodsh/dsh-session-forward#v0.2.1`. The pinned tag is not an available installation source before release.
+Both forwarding arrows point upward in `v0.2.1`. Use the pinned GitHub ref to keep the installation independent of main-branch changes.
 
 ### Upgrades and repeated installation
 
