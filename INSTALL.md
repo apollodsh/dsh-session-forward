@@ -20,9 +20,19 @@
 
 如果安装时提示「这个包已经安装；要安装其他版本，请先卸载它」，先查看详情中的版本和运行状态。目标版本已经安装且运行中时无需重复安装；要换版本则先卸载，再安装目标版本。
 
+### macOS 桌面 App 自带 CLI
+
+App 安装在默认目录时，自带 CLI 支持管理 `desktop` profile，首次安装和升级均可使用：
+
+```bash
+"/Applications/DeepSeek Harness.app/Contents/Resources/runtime/cli/bin/dsh" plugin --profile desktop add "github:apollodsh/dsh-session-forward#v0.2.1"
+```
+
+桌面 App 使用 `desktop` profile，`dsh web` 使用独立的 `web` profile。普通 CLI 会拒绝管理保留的 `desktop` profile，请使用 App 自带入口。安装或升级后，重启整个桌面 App 以加载更新的客户端清单，再完成上面的版本和转发弹窗检查。
+
 ### 可选：隔离安装检查
 
-需要 PATH 中有 `dsh`、`node` 和 `mktemp`。脚本使用临时 DSH_HOME 和独立 profile，检查安装包版本、bundle 声明和配置加载，再卸载并重新安装；它不启动模型，也不使用桌面或 Web 的真实 profile。它是 CLI 安装检查，不是桌面界面端到端测试。
+需要 PATH 中有 `dsh`、`node` 和 `mktemp`。脚本使用临时 DSH_HOME 和独立 profile，检查安装包版本、bundle 声明和配置加载，重复添加同一来源后确认 bundle 仍恰好声明一次，再卸载并重新安装；它不启动模型，也不使用桌面或 Web 的真实 profile。它是 CLI 安装检查，不是桌面界面端到端测试。
 
 ```bash
 # 默认检查当前目录的插件，预期版本 0.2.1
@@ -53,9 +63,19 @@ To upgrade an existing installation, follow the plugin page's instructions to un
 
 If installation reports that the package is already installed and must be uninstalled to install another version, check the version and running status in its details. If the target version is already installed and running, there is no need to install it again. To change versions, uninstall first and then install the target version.
 
+### Bundled CLI for the macOS desktop App
+
+When the App is installed in its default location, its bundled CLI supports the `desktop` profile for both initial installation and upgrades:
+
+```bash
+"/Applications/DeepSeek Harness.app/Contents/Resources/runtime/cli/bin/dsh" plugin --profile desktop add "github:apollodsh/dsh-session-forward#v0.2.1"
+```
+
+The desktop App uses the `desktop` profile; `dsh web` uses a separate `web` profile. The regular CLI rejects the reserved `desktop` profile, so use the App-bundled entrypoint. After installation or an upgrade, restart the desktop App to load the updated client manifest, then complete the version and forwarding-dialog checks above.
+
 ### Optional isolated installation smoke
 
-The script requires `dsh`, `node`, and `mktemp` on PATH. It uses a temporary DSH_HOME and a separate profile to check the installed version, bundle declaration, and configuration loading, then uninstalls and reinstalls. It does not start a model or use the real desktop or Web profile. This checks CLI installation, not the desktop UI end to end.
+The script requires `dsh`, `node`, and `mktemp` on PATH. It uses a temporary DSH_HOME and a separate profile to check the installed version, bundle declaration, and configuration loading, adds the same source again and confirms the bundle is still selected exactly once, then uninstalls and reinstalls. It does not start a model or use the real desktop or Web profile. This checks CLI installation, not the desktop UI end to end.
 
 ```bash
 # Default: check the local checkout, expecting version 0.2.1
